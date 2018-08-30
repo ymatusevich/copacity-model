@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b First name:
+  = @resource.first_name
+%p
+  %b Last name:
+  = @resource.last_name
+%p
+  %b Email:
+  = @resource.email
+%p
+  %b Resource type:
+  = @resource.resource_type_id
+%p
+  %b General capacity:
+  = @resource.general_capacity
+
+= link_to 'Edit', edit_resource_path(@resource)
+\|
+= link_to 'Back', resources_path

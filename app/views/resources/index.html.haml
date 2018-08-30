@@ -1,0 +1,29 @@
+%h1 Listing resources
+
+%table
+  %thead
+    %tr
+      %th First name
+      %th Last name
+      %th Email
+      %th Resource type
+      %th General capacity
+      %th
+      %th
+      %th
+
+  %tbody
+    - @resources.each do |resource|
+      %tr
+        %td= resource.first_name
+        %td= resource.last_name
+        %td= resource.email
+        %td= resource.resource_type_id
+        %td= resource.general_capacity
+        %td= link_to 'Show', resource
+        %td= link_to 'Edit', edit_resource_path(resource)
+        %td= link_to 'Destroy', resource, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Resource', new_resource_path

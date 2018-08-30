@@ -1,0 +1,8 @@
+%li.nav-item.text-nowrap
+  - if user_signed_in?
+    = link_to 'Sign out', destroy_user_session_path, method: 'delete', class: 'nav-link'
+-#- else
+-#  = link_to 'Sign in', new_user_session_path
+-#- if user_signed_in?
+-#  - if current_user.try(:admin?)
+-#    %li= link_to 'Users', users_path

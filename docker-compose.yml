@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  copacity-model:
+    build: .
+    container_name: 'copacity-model'
+    tty: true
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql5
+    volumes:
+      - ~/RubymineProjects/copacity-model:/copacity-model
+
+  mysql5:
+    image: 'mysql:5.7'
+    restart: always
+    hostname: mysql5
+    container_name: mysql5
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "3307:3307"

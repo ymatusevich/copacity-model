@@ -1,0 +1,40 @@
+!!!
+%html
+  %head
+    %meta{content: 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type'}
+    %meta{content: 'width=device-width, initial-scale=1.0', name: 'viewport'}>
+    %title= content_for?(:title) ? yield(:title) : 'Rails Devise Pundit'
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    %nav.navbar.navbar-dark.sticky-top.bg-dark.flex-md-nowrap.p-0
+      = link_to 'Dashboard', root_path, class: 'navbar-brand col-sm-3 col-md-2 mr-0 w-100'
+      %span.pl-4.text-light.w-100.text-left= yield(:title)
+      -#%input.form-control.form-control-dark.w-100{"aria-label" => "Search", :placeholder => "Search", :type => "text"}/
+      %ul.navbar-nav.px-3
+        = render 'layouts/nav_links_for_auth'
+    .container-fluid
+      .row
+        %nav.col-md-2.d-none.d-md-block.bg-dark.sidebar.flex-nowrap
+          .sidebar-sticky.text-light
+            = render 'layouts/user_info'
+            = render 'layouts/navigation'
+
+            %h6.sidebar-heading.d-flex.justify-content-between.align-items-center.px-3.mt-4.mb-1.text-light
+              %span Saved reports
+              %a.d-flex.align-items-center.text-muted{:href => "#"}
+                %span{"data-feather" => "plus-circle"}
+            %ul.nav.flex-column.mb-2
+              %li.nav-item
+                %a.nav-link{:href => "#"}
+                  %span{"data-feather" => "file-text"}
+                  Current month
+
+        %main.col-md-9.ml-sm-auto.col-lg-10.pt-3.px-4{:role => "main"}
+          .d-flex.flex-wrap.flex-md-nowrap.align-items-center.pb-2.mb-3.border-bottom
+            .mb-2.mb-md-0.w-100
+              = yield(:content_header_links)
+
+          .content
+            = yield
