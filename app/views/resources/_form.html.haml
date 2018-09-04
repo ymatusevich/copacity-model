@@ -1,25 +1,46 @@
-= form_for @resource do |f|
-  - if @resource.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@resource.errors.count, "error")} prohibited this resource from being saved:"
-      %ul
-        - @resource.errors.full_messages.each do |message|
-          %li= message
+= form_for @resource, url: action_name == 'edit' ? resource_path(@resource) : resources_path, html: { class: 'w-100' } do |f|
+  .d-flex.w-100
+    - if @resource.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@resource.errors.count, "error")} prohibited this project from being saved:"
+        %ul
+          - @resource.errors.full_messages.each do |message|
+            %li= message
 
-  .field
-    = f.label :first_name
-    = f.text_field :first_name
-  .field
-    = f.label :last_name
-    = f.text_field :last_name
-  .field
-    = f.label :email
-    = f.text_field :email
-  .field
-    = f.label :resource_type_id
-    = f.number_field :resource_type_id
-  .field
-    = f.label :general_capacity
-    = f.number_field :general_capacity
-  .actions
-    = f.submit 'Save'
+  .d-flex.flex-row
+    .justify-content-start.w-50.pr-4.border-right
+      .d-flex.flex-column
+        .flex-row.d-inline-flex
+          .flex-input-item.flex-fill
+            .form-group
+              = f.label :first_name
+              = f.text_field :first_name, class: 'form-control'
+          .flex-input-item.flex-fill
+            .form-group
+              = f.label :last_name
+              = f.text_field :last_name, class: 'form-control'
+
+        .flex-row.d-inline-flex
+          .flex-input-item.flex-fill
+            .form-group
+              = f.label :email
+              = f.text_field :email, class: 'form-control'
+          .flex-input-item.flex-fill
+            .form-group
+              = f.label :general_capacity
+              = f.number_field :general_capacity, class: 'form-control'
+
+    .justify-content-start.pl-4.w-50
+      %p Assigned Projects:
+      - @resource.assigned_projects.each do |ap|
+        .flex-row.border-bottom.w-100
+          .form-group
+            %label Project Name
+            = ap.project&.name
+          .form-group
+            %label Resource Type
+            = ap.resource_type_id
+
+  .d-flex.flex-row.form-actions.w-100
+    = link_to 'Back', resources_path, class: 'btn btn-dark'
+    = f.submit 'Save', class: 'btn btn-success'

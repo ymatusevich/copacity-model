@@ -1,0 +1,29 @@
+.d-inline-flex.remove-node.mb-3.pb-3.border-bottom.shadow-sm.w-100
+  .flex-input-item
+    .form-group
+      = f.label :resource_id
+      = f.collection_select :resource_id, Resource.all, :id, :name, { prompt: true }, { class: 'form-control' }
+  .flex-input-item
+    .form-group
+      = f.label :resource_type_id
+      = f.select :resource_type_id, options_for_select(Settings.resource_types.to_a, f.object.resource_type_id), {}, class: 'form-control'
+  .flex-input-item
+    .form-group
+      = f.label :involvement
+      = f.text_field :involvement, class: 'form-control', size: 12
+  .flex-input-item
+    .form-group
+      = f.label :forecast_type_id
+      = f.select :forecast_type_id, options_for_select(Settings.forecast_types.to_a, f.object.resource_type_id), {}, class: 'form-control'
+  .flex-input-item
+    .form-group
+      = f.label :start_date
+      = f.date_field :start_date, class: 'form-control'
+  .flex-input-item
+    .form-group
+      = f.label :end_date
+      = f.date_field :end_date, class: 'form-control'
+  .flex-input-item
+    .form-group
+      = link_to_remove_association 'X', f, wrapper_class: 'remove-node', hide_style: 'display: none! important',
+        class: 'btn btn-sm btn-danger btn-remove-assoc'

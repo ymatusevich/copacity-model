@@ -9,20 +9,85 @@
       %span{"data-feather" => "calendar"}
       This week
 
+.flex-column.w-100.dark-gray
+  - @projects.each do |project|
+    .d-flex.m-2.p-4.border.shadow-sm.bg-light.position-relative.project
+      .w-50.flex-row.border-right.pr-3
+        .project-title.mb-3
+          .d-flex.flex-row.align-items-start
+            %h5.mr-3= project.name
+            %span{ class: "badge badge-#{status_class(project)}" }= project.status_name
+          %span.text-capitalize.font-weight-bold= project.client.name
+        .d-flex.flex-row
+          .w-50.d-flex
+            .project-hours.mr-3
+              .green.font-weight-bold
+                = project.hours
+                h
+            .unallocated-hours.ml-3
+              = project.unallocated_hours
+          .w-50
 
-.table-responsive.table-hover
-  %table.table.table-striped
-    %thead
-      %tr
-        %th Name
-        %th
-        %th
-        %th
+      .w-25.border-right.px-3
+        .project-assigned-resources
+          - project.assigned_resources.each do |ar|
+            .project-assigned-resource.flex-row.d-flex
+              .w-75
+                %span= ar.resource.name
+              .w-25
+                %span= ar.resource_type_name
 
-    %tbody
-      - @projects.each do |project|
-        %tr
-          %td= project.name
-          %td= link_to 'Show', project
-          %td= link_to 'Edit', edit_project_path(project)
-          %td= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }
+      .w-25.pl-3.third
+        .d-flex.project-dates.mb-2
+          .d-flex.w-50.text-left.mr-2.flex-column
+            %span.text-uppercase.pr-2= 'START: '
+            %span= project.start_date.pretty
+          .d-flex.w-50.text-left.flex-column
+            %span.text-uppercase.pr-2= 'END: '
+            %span= project.end_date.pretty
+        .d-flex.code-complete.mb-2
+          .w-50.mr-2
+            code complete:
+          .w-50.text-underscore
+            = project.code_complete_date.pretty
+        .d-flex.project-corrections
+          .w-50.mr-2
+            %span adjustments:
+          .w-50
+            - if project.adjustments.blank?
+              %span -
+            - project.adjustments.each do |adjustment|
+              %span= adjustment.date_pretty
+              %span
+                = link_to project_adjustment_path(project, adjustment), method: :delete, data: { confirm: 'Are you sure?' } do
+                  %span.oi.oi-trash
+      .btn-group.btn-action_absolute
+        .btn.dropdown-toggle.font-weight-bold{ 'data-toggle': :dropdown, 'aria-haspopup': true, 'aria-expanded': false }
+        .dropdown-menu.dropdown-menu-right
+          = link_to 'Show', project, class: 'dropdown-item'
+          = link_to 'Edit', edit_project_path(project) , class: 'dropdown-item'
+          = link_to 'Adjust', new_project_adjustment_path(project), class: 'dropdown-item'
+          = link_to 'Destroy', project, method: :delete, class: 'dropdown-item', data: { confirm: 'Are you sure?' }
+-#
+-#.table-responsive.table-hover
+-#  %table.table.table-striped
+-#    %thead
+-#      %tr
+-#        %th Name
+-#        %th Assigned Resources
+-#        %th Adjustments
+-#        %th
+-#        %th
+-#        %th
+-#        %th
+-#
+-#    %tbody
+-#
+-#        %tr
+-#          %td= project.name
+-#          %td= project.assigned_resources.count
+-#          %td= project.adjustments.count
+-#          %td
+-#          %td
+-#          %td
+-#          %td=

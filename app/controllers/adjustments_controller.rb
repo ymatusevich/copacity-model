@@ -1,0 +1,43 @@
+class AdjustmentsController < ApplicationController
+  before_action :set_adjustment, only: [:edit, :update, :destroy]
+
+  def new
+    @adjustment = AdjustmentForm.new
+  end
+
+  def create
+    @adjustment = AdjustmentForm.new(adjustment_params)
+
+    if @adjustment.save
+      redirect_to projects_path, notice: 'Adjustment was successfully created.'
+    else
+      render :new
+    end
+  end
+
+  def edit
+    @adjustment = AdjustmentForm.new
+  end
+
+  def update
+    @adjustment = AdjustmentForm.new
+  end
+
+  def destroy
+    @adjustment.destroy
+    respond_to do |format|
+      format.html { redirect_to projects_url, notice: 'Adjustment was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+
+    def set_adjustment
+      @adjustment = Adjustment.find(params[:id])
+    end
+
+    def adjustment_params
+      params.fetch(:adjustment_form, {})
+    end
+end

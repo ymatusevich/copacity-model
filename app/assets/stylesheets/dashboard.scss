@@ -1,3 +1,7 @@
+$dark_gray: #454545;
+$yellow: #fac11e;
+$green: #6bd098;
+$blue: #007bff;
 
 body {
   font-size: .875rem;
@@ -103,10 +107,109 @@ body {
   margin: 1em;
 }
 
-@media (min-width: 960px) {
-  .new-project {
-    .d-flex .form-group {
-      width: calc(100% / 3.4);
+/* content */
+
+.content {
+  margin-bottom: 55px;
+}
+
+.flex-input-item {
+  margin: 0 10px;
+}
+
+.add-association-btn {
+  margin-top: 1.7rem !important;
+}
+.btn-remove-assoc {
+  margin-top: 2rem !important;
+}
+
+.form-actions {
+  margin: 0 -15px !important;
+  background: #fff;
+  padding: 10px 25px;
+  border-top: 1px solid #ced4da;
+  position: fixed;
+  bottom: 0;
+
+  .btn {
+    margin-right: 10px;
+    padding: 5px 25px;
+  }
+}
+
+.project-title {
+  h5 {
+    color: $dark_gray;
+  }
+  > span {
+    color: #999999;
+  }
+}
+
+.btn-action_absolute {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  .btn.btn-sm.dropdown-toggle {
+    color: $dark_gray;
+  }
+}
+
+.dark-gray {
+  color: $dark_gray;
+}
+
+.green {
+  color: $green;
+}
+
+.project-dates {
+  text-decoration: underline;
+
+  .text-uppercase {
+    font-size: 0.6rem;
+  }
+}
+
+.project .third {
+  .code-complete {
+    .w-50:first-child {
+      font-size: 0.7rem;
     }
   }
+}
+.project-corrections {
+  .w-50:first-child {
+    font-size: 0.7rem;
+  }
+
+  a {
+    color: red;
+    font-size: 0.6rem;
+  }
+}
+
+.dropdown-toggle {
+  &:hover::after {
+    color: $yellow;
+  }
+
+  &::after {
+    color: $dark_gray;
+  }
+}
+
+.field_with_errors {
+  display: flex;
+  width: 100%;
+
+  input, select {
+    border: 1px solid red;
+  }
+}
+
+.resources-title {
+  background: #ddd;
 }

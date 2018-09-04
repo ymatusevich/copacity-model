@@ -3,7 +3,7 @@ module ApplicationHelper
     html_options, options = options, name if block_given?
     url = url_for(options)
     html_options ||= { class: '' }
-    html_options[:class] += ' active'  if request.path == url
+    html_options[:class] += ' active'  if url.include?(controller_name)
 
     block_given? ? link_to(options, html_options) { yield } : link_to(name, options, html_options)
   end

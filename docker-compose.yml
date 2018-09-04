@@ -11,6 +11,7 @@ services:
       - mysql5
     volumes:
       - ~/RubymineProjects/copacity-model:/copacity-model
+      - ~/RubymineProjects:/projects
 
   mysql5:
     image: 'mysql:5.7'

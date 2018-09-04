@@ -2,9 +2,9 @@
   .my-3.profile-user-pic.d-block
     = image_tag('profile-empty', class: 'rounded-circle w-75')
   .profile-user-title.font-weight-bold
-    John Doe
+    = current_user.name
   .profile-user-role.font-weight-bold.text-uppercase
     Developer
   .profile-user-actions
-    .badge.badge-warning Edit
+    = link_to 'Edit', edit_user_path(current_user), class: 'badge badge-warning'
 

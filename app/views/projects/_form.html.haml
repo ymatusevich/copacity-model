@@ -1,33 +1,60 @@
-= form_for @project, url: projects_path do |f|
-  - if @project.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
-      %ul
-        - @project.errors.full_messages.each do |message|
-          %li= message
-  .d-flex.form-row
-    .form-group
-      = f.label :uid
-      = f.text_field :uid, class: 'form-control'
-    .form-group
-      = f.label :name
-      = f.text_field :name, class: 'form-control'
-  .d-flex.form-row
-    .form-group
-      = f.label :hours
-      = f.number_field :hours, class: 'form-control'
-    .form-group
-      = f.label :price
-      = f.number_field :price, class: 'form-control'
-    .form-group
-      = f.label :currency
-      = f.text_field :currency, class: 'form-control'
-  .d-flex.form-row
-    .form-group
-      = f.label :status
-      = f.text_field :status, class: 'form-control'
-    .form-group.w-33
-      = f.label :client_id
-      = f.collection_select :client_id, Client.all, :id, :name, { prompt: true }, { class: 'form-control' }
-  .d-flex.form-row.actions
+= form_for @project, url: action_name == 'edit' ? project_path(@project) : projects_path, html: { class: 'w-100' } do |f|
+  .d-flex.w-100
+    - if @project.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
+        %ul
+          - @project.errors.full_messages.each do |message|
+            %li= message
+  .d-flex
+    .flex-input-item
+      .form-group
+        = f.label :uid
+        = f.text_field :uid, class: 'form-control', size: 7
+    .flex-input-item.flex-fill
+      .form-group
+        = f.label :name
+        = f.text_field :name, class: 'form-control'
+    .flex-input-item
+      .form-group.w-33
+        = f.label :client_id
+        = f.collection_select :client_id, Client.all, :id, :name, { prompt: true }, { class: 'form-control' }
+    .flex-input-item
+      .form-group
+        = f.label :status
+        = f.select :status, options_for_select(Settings.project.status.to_a, @project.status), {}, { class: 'form-control' }
+
+  .d-flex.border-bottom
+    .flex-input-item
+      .form-group
+        = f.label :hours
+        = f.number_field :hours, class: 'form-control'
+    .flex-input-item
+      .form-group
+        = f.label :price
+        = f.number_field :price, class: 'form-control'
+    .flex-input-item
+      .form-group
+        = f.label :currency
+        = f.select :currency, options_for_select(Settings.currencies.to_a, @project.currency), {}, { class: 'form-control' }
+    .flex-input-item
+      .form-group
+        = f.label :start_date
+        = f.date_field :start_date, class: 'form-control'
+    .flex-input-item
+      .form-group
+        = f.label :end_date
+        = f.date_field :end_date, class: 'form-control'
+
+  .d-flex.flex-column
+    .flex-fill.pb-2.mb-2.w-100.text-center.border-bottom.shadow-sm.resources-title.pt-2
+      %span.font-weight-bold.text-uppercase
+        Resources:
+    = f.fields_for :assigned_resources do |f_ar|
+      = render 'projects/assigned_resource_fields', f: f_ar
+
+  .d-flex.flex-row.form-actions.w-100
+    = link_to 'Back', projects_path, class: 'btn btn-dark'
     = f.submit 'Save', class: 'btn btn-success'
+    = link_to_add_association 'add resource', f, :assigned_resources, 'data-association-insertion-method': :after,
+      class: 'btn btn-info'

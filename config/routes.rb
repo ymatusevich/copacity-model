@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :resources
-  resources :projects
+  resources :projects do
+    resources :adjustments, except: [:show, :index]
+  end
   resources :clients
   root to: 'visitors#index'
 

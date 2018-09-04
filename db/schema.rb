@@ -10,16 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_30_120220) do
+ActiveRecord::Schema.define(version: 2018_09_04_083034) do
+
+  create_table "adjustments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.datetime "date"
+    t.bigint "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_adjustments_on_project_id"
+  end
 
   create_table "assigned_resources", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "resources_id"
-    t.bigint "projects_id"
+    t.bigint "resource_id"
+    t.bigint "project_id"
     t.integer "resource_type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["projects_id"], name: "index_assigned_resources_on_projects_id"
-    t.index ["resources_id"], name: "index_assigned_resources_on_resources_id"
+    t.integer "involvement"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer "forecast_type_id"
+    t.index ["project_id"], name: "index_assigned_resources_on_project_id"
+    t.index ["resource_id"], name: "index_assigned_resources_on_resource_id"
   end
 
   create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -74,11 +86,9 @@ ActiveRecord::Schema.define(version: 2018_08_30_120220) do
     t.string "uid"
     t.string "token"
     t.integer "expires_at"
+    t.string "date_format"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "assigned_resources", "projects", column: "projects_id"
-  add_foreign_key "assigned_resources", "resources", column: "resources_id"
-  add_foreign_key "projects", "clients"
 end

@@ -1,0 +1,41 @@
+project:
+  status:
+    not_started: 0
+    in_progress: 1
+    pending: 2
+    completed: 3
+    on_hold: 4
+
+  classes:
+    not_started: 'secondary'
+    in_progress: 'primary'
+    pending: 'warning'
+    complited: 'success'
+    on_hold: 'dark'
+
+resource_types:
+  pm: 0
+  rails: 1
+  magento: 2
+  sap: 3
+  ba: 4
+
+currencies:
+  usd: 0
+  eur: 1
+  rub: 2
+  cad: 3
+
+date_format:
+  - '%m/%d/%Y'
+  - '%d.%m.%Y'
+
+forecast_types:
+  distribution: 0
+  allocation: 1
+
+
+assumptions:
+  working_hours: 8
+  estimate_buffer: 20%
+  code_complete_prior: 10

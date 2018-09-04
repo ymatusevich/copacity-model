@@ -32,6 +32,9 @@ gem 'high_voltage'
 gem 'pundit'
 gem 'haml-rails'
 gem 'config'
+gem 'business_time'
+# gem 'cocoon', path: '/projects/cocoon'
+gem 'cocoon', git: 'https://github.com/ymatusevich/cocoon'
 
 group :development do
   gem 'better_errors'

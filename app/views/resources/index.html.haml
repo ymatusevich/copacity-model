@@ -1,29 +1,32 @@
-%h1 Listing resources
+- content_for(:title) do
+  Listing Resources
 
-%table
-  %thead
-    %tr
-      %th First name
-      %th Last name
-      %th Email
-      %th Resource type
-      %th General capacity
-      %th
-      %th
-      %th
+- content_for(:content_header_links) do
+  .justify-content-end.d-flex
+    .btn-group.mr-2
+      = link_to 'New Resource', new_resource_path, class: 'btn btn-sm btn-outline-secondary'
+    %button.btn.btn-sm.btn-outline-secondary.dropdown-toggle
+      %span{"data-feather" => "calendar"}
+      This week
 
-  %tbody
-    - @resources.each do |resource|
+
+.table-responsive.table-hover
+  %table.table.table-striped
+    %thead
       %tr
-        %td= resource.first_name
-        %td= resource.last_name
-        %td= resource.email
-        %td= resource.resource_type_id
-        %td= resource.general_capacity
-        %td= link_to 'Show', resource
-        %td= link_to 'Edit', edit_resource_path(resource)
-        %td= link_to 'Destroy', resource, method: :delete, data: { confirm: 'Are you sure?' }
+        %th Name
+        %th Email
+        %th Capacity
+        %th Daily
+        %th
+        %th
 
-%br
-
-= link_to 'New Resource', new_resource_path
+    %tbody
+      - @resources.each do |resource|
+        %tr
+          %td= resource.name
+          %td= resource.email
+          %td= resource.general_capacity
+          %td= resource.daily_capacity
+          %td= link_to 'Edit', edit_resource_path(resource)
+          %td= link_to 'Destroy', resource, method: :delete, data: { confirm: 'Are you sure?' }

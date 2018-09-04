@@ -11,7 +11,7 @@ class CreateProjects < ActiveRecord::Migration[5.2]
       t.datetime :start_date
       t.datetime :end_date
 
-      t.belongs_to :client, foreign_key: true
+      t.belongs_to :client
 
       t.timestamps
     end
