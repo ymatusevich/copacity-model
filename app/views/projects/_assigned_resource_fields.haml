@@ -14,7 +14,7 @@
   .flex-input-item
     .form-group
       = f.label :forecast_type_id
-      = f.select :forecast_type_id, options_for_select(Settings.forecast_types.to_a, f.object.resource_type_id), {}, class: 'form-control'
+      = f.select :forecast_type_id, options_for_select(Settings.assigned_resource.forecast.types.to_a, f.object.forecast_type_id), {}, class: 'form-control'
   .flex-input-item
     .form-group
       = f.label :start_date

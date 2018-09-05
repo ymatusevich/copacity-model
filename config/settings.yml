@@ -16,9 +16,13 @@ project:
 resource_types:
   pm: 0
   rails: 1
-  magento: 2
-  sap: 3
-  ba: 4
+  qa: 2
+  magento: 3
+  sap: 4
+  ba: 5
+  front: 6
+  devops: 7
+  other: 8
 
 currencies:
   usd: 0
@@ -30,10 +34,14 @@ date_format:
   - '%m/%d/%Y'
   - '%d.%m.%Y'
 
-forecast_types:
-  distribution: 0
-  allocation: 1
-
+assigned_resource:
+  forecast:
+    types:
+      distribution: 0
+      allocation: 1
+    classes:
+      distribution: 0
+      allocation: 1
 
 assumptions:
   working_hours: 8

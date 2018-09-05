@@ -1,35 +1,29 @@
 class ProjectForm < BaseForm
-  attr_accessor :id, :uid, :name, :hours, :price, :currency, :status, :client_id, :assigned_resources,
-                :start_date, :end_date
+  attr_accessor :id, :uid, :name, :price, :currency, :status, :client_id, :start_date, :end_date,
+                :assigned_resources, :estimations
 
-  validates :uid, :name, :hours, :price, :currency, :status, :client_id, :start_date, :end_date, presence: true
+  validates :uid, :name, :price, :currency, :status, :client_id, :start_date, :end_date, presence: true
 
   has_many :assigned_resources, class_name: AssignedResourceForm.to_s
+  has_many :estimations, class_name: EstimationForm.to_s
 
   def initialize(params = {})
     @assigned_resources = []
+    @estimations = []
     super
-  end
-
-  def save
-    return false unless valid?
-
-    create!
-  end
-
-  def update
-    return false unless valid?
-
-    update!
   end
 
   def build_assigned_resources
     AssignedResourceForm.new
   end
 
+  def build_estimation
+    EstimationForm.new
+  end
+
   private
 
-  def create!
+  def save!
     Project.connection.transaction do
       project = Project.new(project_params)
       project.save!
@@ -38,9 +32,12 @@ class ProjectForm < BaseForm
         ar.project_id = project.id
         ar.save
       end
-    end
 
-    true
+      estimations.each do |estimation|
+        estimation.project_id = project.id
+        estimation.save
+      end
+    end
   end
 
   def update!
@@ -54,6 +51,13 @@ class ProjectForm < BaseForm
         ar.project_id = project.id
         ar.save
       end
+
+      project.estimations.delete_all
+
+      estimations.each do |estimation|
+        estimation.project_id = project.id
+        estimation.save
+      end
     end
   end
 
@@ -61,7 +65,6 @@ class ProjectForm < BaseForm
     {
         uid: uid,
         name: name,
-        hours: hours,
         price: price,
         currency: currency,
         status: status,

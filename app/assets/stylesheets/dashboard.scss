@@ -142,7 +142,8 @@ body {
   h5 {
     color: $dark_gray;
   }
-  > span {
+
+  span.text-capitalize.font-weight-bold {
     color: #999999;
   }
 }
@@ -181,8 +182,12 @@ body {
   }
 }
 .project-corrections {
-  .w-50:first-child {
+  span.mb-1 {
     font-size: 0.7rem;
+  }
+
+  .from, .to {
+    font-size: 0.6rem;
   }
 
   a {
@@ -213,3 +218,25 @@ body {
 .resources-title {
   background: #ddd;
 }
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.w-55 {
+  width: 55%;
+}
+
+.w-40 {
+  width: 40%;
+}
+
+.w-35 {
+  width: 35%;
+}
+
+.w-10 {
+  width: 10%;
+}
+
+

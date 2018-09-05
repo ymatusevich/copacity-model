@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   def index
-    @projects = Project.includes(:client, :resources)
+    @projects = Project.includes(:client, :resources, :estimations, :adjustments)
   end
 
   def show
@@ -13,7 +13,11 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @project = ProjectForm.new(@project.attributes.merge(@project.assigned_resources_attributes))
+    attrs = @project.attributes
+                .merge(@project.assigned_resources_attributes)
+                .merge(@project.estimations_attributes)
+
+    @project = ProjectForm.new(attrs)
   end
 
   def create

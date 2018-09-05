@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_04_083034) do
+ActiveRecord::Schema.define(version: 2018_09_04_191047) do
 
   create_table "adjustments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "date"
@@ -40,10 +40,16 @@ ActiveRecord::Schema.define(version: 2018_09_04_083034) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "estimations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "project_id"
+    t.integer "resource_type_id"
+    t.integer "hours"
+    t.index ["project_id"], name: "index_estimations_on_project_id"
+  end
+
   create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "uid", limit: 5
     t.string "name"
-    t.integer "hours"
     t.integer "price"
     t.integer "currency"
     t.string "status"

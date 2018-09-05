@@ -12,31 +12,44 @@
 .flex-column.w-100.dark-gray
   - @projects.each do |project|
     .d-flex.m-2.p-4.border.shadow-sm.bg-light.position-relative.project
-      .w-50.flex-row.border-right.pr-3
-        .project-title.mb-3
-          .d-flex.flex-row.align-items-start
-            %h5.mr-3= project.name
-            %span{ class: "badge badge-#{status_class(project)}" }= project.status_name
+      .w-40.flex-row.border-right.pr-3
+        .d-flex.project-title.mb-3.flex-column
+          %h5= project.name
+          %span{ class: "mb-2 mr-auto badge badge-#{status_class(project)}" }= project.status_name.to_s.humanize
           %span.text-capitalize.font-weight-bold= project.client.name
         .d-flex.flex-row
           .w-50.d-flex
             .project-hours.mr-3
               .green.font-weight-bold
-                = project.hours
-                h
+                -#= project.hours
+                -#h
             .unallocated-hours.ml-3
-              = project.unallocated_hours
+              -#= project.unallocated_hours
           .w-50
 
-      .w-25.border-right.px-3
+      .w-35.border-right.px-3
         .project-assigned-resources
-          - project.assigned_resources.each do |ar|
-            .project-assigned-resource.flex-row.d-flex
-              .w-75
-                %span= ar.resource.name
+          .project-assigned-resource.d-flex.mb-2.pb-2.border-bottom.text-center
+            .w-25
+              %span.oi.oi-people
+            .w-25
+              %span.oi.oi-wrench{ title: 'estimated hours' }
+            .w-25
+              %span.oi.oi-pin{ title: 'hours assigned' }
+            .w-25
+              %span.oi.oi-warning{ title: 'unallocated hours' }
+          - project.resource_types.each do |rt|
+            .project-assigned-resource.d-flex.mb-2.pb-2.border-bottom.text-center
               .w-25
-                %span= ar.resource_type_name
-
+                = resource_type_name(rt)
+              .w-25
+                %span= project.estimated_hours_for(rt)
+              .w-25
+                %span= project.assigned_hours_for(rt)
+              .w-25
+                %span= project.unallocated_hours_for(rt)
+          .estimation-details.text-center
+            = link_to 'details', project
       .w-25.pl-3.third
         .d-flex.project-dates.mb-2
           .d-flex.w-50.text-left.mr-2.flex-column
@@ -50,44 +63,23 @@
             code complete:
           .w-50.text-underscore
             = project.code_complete_date.pretty
-        .d-flex.project-corrections
-          .w-50.mr-2
-            %span adjustments:
-          .w-50
-            - if project.adjustments.blank?
-              %span -
-            - project.adjustments.each do |adjustment|
-              %span= adjustment.date_pretty
-              %span
+        .d-flex.project-corrections.flex-column
+          %span.mb-1 adjustments:
+
+          - project.adjustments.each do |adjustment|
+            .d-flex.flex-row.border-bottom.mb-1
+              .d-flex.w-50.text-left.mr-2.flex-column
+                %span.from.text-uppercase.text-underline= 'FROM: '
+                %span= adjustment.date.pretty
+              .d-flex.w-50.text-left.flex-column
+                %span.to.text-uppercase.text-underline= 'TO: '
+                %span= adjustment.date.pretty
+              %span.pt-3
                 = link_to project_adjustment_path(project, adjustment), method: :delete, data: { confirm: 'Are you sure?' } do
                   %span.oi.oi-trash
       .btn-group.btn-action_absolute
         .btn.dropdown-toggle.font-weight-bold{ 'data-toggle': :dropdown, 'aria-haspopup': true, 'aria-expanded': false }
         .dropdown-menu.dropdown-menu-right
-          = link_to 'Show', project, class: 'dropdown-item'
           = link_to 'Edit', edit_project_path(project) , class: 'dropdown-item'
           = link_to 'Adjust', new_project_adjustment_path(project), class: 'dropdown-item'
           = link_to 'Destroy', project, method: :delete, class: 'dropdown-item', data: { confirm: 'Are you sure?' }
--#
--#.table-responsive.table-hover
--#  %table.table.table-striped
--#    %thead
--#      %tr
--#        %th Name
--#        %th Assigned Resources
--#        %th Adjustments
--#        %th
--#        %th
--#        %th
--#        %th
--#
--#    %tbody
--#
--#        %tr
--#          %td= project.name
--#          %td= project.assigned_resources.count
--#          %td= project.adjustments.count
--#          %td
--#          %td
--#          %td
--#          %td=

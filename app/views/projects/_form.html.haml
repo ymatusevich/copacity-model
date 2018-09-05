@@ -27,10 +27,6 @@
   .d-flex.border-bottom
     .flex-input-item
       .form-group
-        = f.label :hours
-        = f.number_field :hours, class: 'form-control'
-    .flex-input-item
-      .form-group
         = f.label :price
         = f.number_field :price, class: 'form-control'
     .flex-input-item
@@ -49,6 +45,14 @@
   .d-flex.flex-column
     .flex-fill.pb-2.mb-2.w-100.text-center.border-bottom.shadow-sm.resources-title.pt-2
       %span.font-weight-bold.text-uppercase
+        Estimations:
+    .project-estimations
+      = f.fields_for :estimations do |estimation|
+        = render 'projects/estimation_fields', f: estimation
+
+  .d-flex.flex-column
+    .flex-fill.pb-2.mb-2.w-100.text-center.border-bottom.shadow-sm.resources-title.pt-2
+      %span.font-weight-bold.text-uppercase
         Resources:
     = f.fields_for :assigned_resources do |f_ar|
       = render 'projects/assigned_resource_fields', f: f_ar
@@ -56,5 +60,7 @@
   .d-flex.flex-row.form-actions.w-100
     = link_to 'Back', projects_path, class: 'btn btn-dark'
     = f.submit 'Save', class: 'btn btn-success'
-    = link_to_add_association 'add resource', f, :assigned_resources, 'data-association-insertion-method': :after,
+    = link_to_add_association 'Add estimation', f, :estimations, 'data-association-insertion-method': :after,
+      class: 'btn btn-info', 'data-association-insertion-node': '.project-estimations'
+    = link_to_add_association 'Add resource', f, :assigned_resources, 'data-association-insertion-method': :after,
       class: 'btn btn-info'

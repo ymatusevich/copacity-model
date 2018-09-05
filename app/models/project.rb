@@ -1,41 +1,44 @@
 class Project < ApplicationRecord
+  extend NestedAttributes
+
+  attr_reader :resource_types
+
   belongs_to :client
   has_many :adjustments, dependent: :destroy
+  has_many :estimations, dependent: :destroy
   has_many :assigned_resources, dependent: :destroy
   has_many :resources, through: :assigned_resources
 
-  accepts_nested_attributes_for :assigned_resources, reject_if: :all_blank, allow_destroy: true
-
-  def assigned_resources_attributes
-    return {} if assigned_resources.blank?
-    param =
-      assigned_resources.inject({}) do |memo, r|
-        memo[r.id.to_s] = r.attributes
-        memo
-      end
-
-    { 'assigned_resources_attributes' => param }
-  end
+  nested_attributes_for :assigned_resources, :estimations
 
   def status_name
     Settings.project.status.to_h.key(status.to_i)
   end
 
-  def code_complete_date
-    Settings.assumptions.code_complete_prior.business_days.before(end_date)
+  def finish_date
+    (adjustments.last&.date || end_date)
   end
 
-  def unallocated_hours
-    total_hours = hours.to_f + (hours.to_f * Settings.assumptions.estimate_buffer.to_f / 100)
+  def code_complete_date
+    Settings.assumptions.code_complete_prior.business_days.before(finish_date)
+  end
 
-    allocated_time = assigned_resources.inject(0.0) do |memo, resource|
-      start = (resource.start_date.presence || start_date).to_date
-      finish = (resource.end_date.presence || end_date).to_date
-      business_days = start.business_days_until(finish)
+  def resource_types
+    from_estimations = estimations.pluck(:resource_type_id)
+    from_resources = assigned_resources.pluck(:resource_type_id)
+    @resource_types ||= (from_estimations | from_resources).sort
+  end
 
-      memo += resource.allocated_time * business_days
-    end
+  def estimated_hours_for(id)
+    estimations.by_type(id).sum(&:hours)
+  end
 
-    allocated_time
+  def assigned_hours_for(id)
+    assigned_resources.by_type(id).sum(&:hours_consumed).round(1)
+  end
+
+  def unallocated_hours_for(id)
+    hours = estimated_hours_for(id).to_f - assigned_hours_for(id).to_f
+    hours >= 0 ? hours : 0
   end
 end
