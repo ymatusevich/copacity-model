@@ -196,6 +196,12 @@ body {
   }
 }
 
+.project-price {
+  font-size: 1rem;
+  color: dimgray;
+  bottom: 0;
+}
+
 .dropdown-toggle {
   &:hover::after {
     color: $yellow;

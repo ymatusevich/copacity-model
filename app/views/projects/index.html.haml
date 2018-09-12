@@ -12,20 +12,18 @@
 .flex-column.w-100.dark-gray
   - @projects.each do |project|
     .d-flex.m-2.p-4.border.shadow-sm.bg-light.position-relative.project
-      .w-40.flex-row.border-right.pr-3
+      .w-40.flex-row.border-right.pr-3.position-relative
         .d-flex.project-title.mb-3.flex-column
-          %h5= project.name
+          %h5
+            \#
+            = project.id
+            = project.name
           %span{ class: "mb-2 mr-auto badge badge-#{status_class(project)}" }= project.status_name.to_s.humanize
           %span.text-capitalize.font-weight-bold= project.client.name
-        .d-flex.flex-row
-          .w-50.d-flex
-            .project-hours.mr-3
-              .green.font-weight-bold
-                -#= project.hours
-                -#h
-            .unallocated-hours.ml-3
-              -#= project.unallocated_hours
-          .w-50
+        .text-uppercase.project-price.mt-4.position-absolute
+          %span
+            = project.price
+            = currency_name(project.currency)
 
       .w-35.border-right.px-3
         .project-assigned-resources

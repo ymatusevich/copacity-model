@@ -23,28 +23,20 @@ class ProjectsController < ApplicationController
   def create
     @project = ProjectForm.new(new_project_form_params)
 
-    respond_to do |format|
-      if @project.save
-        format.html { redirect_to projects_path, notice: 'Project was successfully created.' }
-        format.json { render :show, status: :created, location: @project }
-      else
-        format.html { render :new }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+    if @project.save
+      redirect_to projects_path, notice: 'Project was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
     @project = ProjectForm.new(edit_project_form_params)
 
-    respond_to do |format|
-      if @project.update
-        format.html { redirect_to projects_path, notice: 'Project was successfully updated.' }
-        format.json { render :show, status: :ok, location: @project }
-      else
-        format.html { render :edit }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+    if @project.update
+      redirect_to projects_path, notice: 'Project was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -62,7 +54,7 @@ class ProjectsController < ApplicationController
     end
 
     def new_project_form_params
-      params.fetch(:project_form, {})
+      params.fetch(:project, {})
     end
 
     def edit_project_form_params

@@ -3,7 +3,7 @@ class AssignedResourceForm < BaseForm
                 :forecast_type_id
 
 
-  validates :resource_id, :project_id, :resource_type_id, presence: true, numericality: { only_integer: true }
+  validates :resource_id, :resource_type_id, presence: true, numericality: { only_integer: true }
 
   private
 

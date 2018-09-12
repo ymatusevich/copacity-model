@@ -6,4 +6,8 @@ module ProjectsHelper
   def resource_type_name(id)
     Settings.resource_types.to_h.key(id)
   end
+
+  def currency_name(currency)
+    Settings.currencies.to_h.key(currency)
+  end
 end

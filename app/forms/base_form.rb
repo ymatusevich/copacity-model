@@ -1,5 +1,6 @@
 class BaseForm
   include ActiveModel::Model
+  extend ActiveRecord::Validations::ClassMethods
   include FormToModel
 
   def initialize(params = {})

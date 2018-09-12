@@ -1,11 +1,8 @@
-= form_for @project, url: action_name == 'edit' ? project_path(@project) : projects_path, html: { class: 'w-100' } do |f|
+= form_for @project, html: { class: 'w-100' } do |f|
   .d-flex.w-100
     - if @project.errors.any?
-      #error_explanation
-        %h2= "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
-        %ul
-          - @project.errors.full_messages.each do |message|
-            %li= message
+      - @project.errors.full_messages.each do |message|
+        .alert.alert-danger.w-100= message
   .d-flex
     .flex-input-item
       .form-group
@@ -36,11 +33,11 @@
     .flex-input-item
       .form-group
         = f.label :start_date
-        = f.date_field :start_date, class: 'form-control'
+        = f.date_field :start_date, class: 'form-control', value: f.object.start_date&.to_date
     .flex-input-item
       .form-group
         = f.label :end_date
-        = f.date_field :end_date, class: 'form-control'
+        = f.date_field :end_date, class: 'form-control', value: f.object.end_date&.to_date
 
   .d-flex.flex-column
     .flex-fill.pb-2.mb-2.w-100.text-center.border-bottom.shadow-sm.resources-title.pt-2
