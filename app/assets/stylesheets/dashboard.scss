@@ -225,6 +225,19 @@ body {
   background: #ddd;
 }
 
+.calendar {
+  .calendar-resources {
+    left: 0;
+    background: white;
+  }
+}
+
+
+
+
+
+
+
 .text-underline {
   text-decoration: underline;
 }
@@ -243,6 +256,10 @@ body {
 
 .w-10 {
   width: 10%;
+}
+
+.scroll-x {
+  overflow-x: scroll;
 }
 
 

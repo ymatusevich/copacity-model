@@ -3,6 +3,20 @@ class AssignedResource < ApplicationRecord
 
   belongs_to :resource
   belongs_to :project
+  has_many :project_days, dependent: :destroy
+  has_many :calendar_days, through: :project_days
+
+  def _start_date
+    (start_date || project.start_date).to_date
+  end
+
+  def _end_date
+    (end_date || project.end_date).to_date
+  end
+
+  def working_days
+    _start_date.business_dates_until(_end_date + 1)
+  end
 
   def distribution?
     forecast_type_id == 0
@@ -24,16 +38,20 @@ class AssignedResource < ApplicationRecord
     (resource.general_capacity.to_f / 100) * Settings.assumptions.working_hours.to_f
   end
 
+  def consumed_per_day
+    if distribution?
+      work_day_time.round(1)
+    else
+      allocated_per_day
+    end
+  end
+
   def hours_consumed
-    start = (start_date.presence || project.start_date).to_date
-    finish = (end_date.presence || project.end_date).to_date
-    business_days = start.business_days_until(finish)
-    business_days + 1 if start.workday?
     total_estimation = project.estimations.total(resource_type_id).to_f
 
-    return (work_day_time.to_f * business_days.to_f).round(1) if distribution?
+    return (work_day_time.to_f * working_days.size.to_f).round(1) if distribution?
 
-    assigned_time = allocated_per_day * business_days.to_f
+    assigned_time = allocated_per_day * working_days.size.to_f
     (assigned_time > total_estimation ? total_estimation : assigned_time).round(1)
   end
 end

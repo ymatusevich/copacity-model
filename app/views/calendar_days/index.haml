@@ -1,0 +1,16 @@
+.d-flex.calendar.flex-row.position-relative.w-100.scroll-x
+  - @days.each_with_index do |day, index|
+    - if index == 0
+      .calendar-resources.d-flex.text-nowrap.position-sticky.flex-column
+        .calendar-cell.border-bottom
+          Resources
+        - @resources.all.each do |r|
+          .calendar-cell.border-bottom
+            = r.name
+
+    .px-3.border-right.text-nowrap
+      .calendar-cell.border-bottom
+        = day.date
+      - @resources.all.each do |r|
+        .calendar-cell.border-bottom
+          = day.prepare_data(r)

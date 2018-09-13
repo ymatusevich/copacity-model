@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_04_191047) do
+ActiveRecord::Schema.define(version: 2018_09_12_110403) do
 
   create_table "adjustments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "date"
@@ -34,6 +34,10 @@ ActiveRecord::Schema.define(version: 2018_09_04_191047) do
     t.index ["resource_id"], name: "index_assigned_resources_on_resource_id"
   end
 
+  create_table "calendar_days", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.date "date", null: false
+  end
+
   create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -45,6 +49,17 @@ ActiveRecord::Schema.define(version: 2018_09_04_191047) do
     t.integer "resource_type_id"
     t.integer "hours"
     t.index ["project_id"], name: "index_estimations_on_project_id"
+  end
+
+  create_table "project_days", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "calendar_day_id"
+    t.bigint "assigned_resource_id"
+    t.integer "resource_id"
+    t.integer "project_id"
+    t.index ["assigned_resource_id"], name: "index_project_days_on_assigned_resource_id"
+    t.index ["calendar_day_id"], name: "index_project_days_on_calendar_day_id"
+    t.index ["project_id"], name: "index_project_days_on_project_id"
+    t.index ["resource_id"], name: "index_project_days_on_resource_id"
   end
 
   create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

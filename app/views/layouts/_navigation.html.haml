@@ -10,5 +10,8 @@
   %span Reports
 %ul.nav.flex-column.mb-2
   %li.nav-item
-    %a.nav-link{:href => "#"}
-      Current month
+    = link_to 'Report', calendar_days_path, class: 'nav-link'
+  %li.nav-item
+    = link_to 'By resource type', '#', class: 'nav-link'
+  %li.nav-item
+    = link_to 'By project', '#', class: 'nav-link'

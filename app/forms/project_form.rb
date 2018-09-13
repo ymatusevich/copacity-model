@@ -25,12 +25,13 @@ class ProjectForm < BaseForm
   private
 
   def save!
-    ActiveRecord::Base.connection.transaction do
+    Project.transaction do
       project = Project.new(project_params)
       project.save!
 
       assigned_resources.each do |ar|
         ar.project_id = project.id
+
         raise ActiveRecord::Rollback unless ar.save
       end
 
