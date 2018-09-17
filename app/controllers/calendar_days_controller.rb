@@ -4,7 +4,7 @@ class CalendarDaysController < ApplicationController
   def index
     @days = Calendar::Day.includes(:assigned_resources, :project_days)
     @resources = Resource.includes(:assigned_resources, :projects)
-    @result = ReportService.new(@resources, @days).call
+    @result = MonthReportService.new(@resources, @days).call
   end
 
   private
