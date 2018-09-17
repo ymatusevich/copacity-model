@@ -1,16 +1,43 @@
-.d-flex.calendar.flex-row.position-relative.w-100.scroll-x
-  - @days.each_with_index do |day, index|
-    - if index == 0
-      .calendar-resources.d-flex.text-nowrap.position-sticky.flex-column
-        .calendar-cell.border-bottom
-          Resources
-        - @resources.all.each do |r|
-          .calendar-cell.border-bottom
-            = r.name
+.container
+  .row
+    .d-flex.calendar.flex-row.position-relative.w-100.scroll-x
+      - @days.each_with_index do |day, index|
+        - if index == 0
+          .calendar-resources.d-flex.text-nowrap.position-sticky.flex-column
+            .calendar-cell.border-bottom
+              Resources
+            - @resources.all.each do |r|
+              .calendar-cell.border-bottom
+                = r.name
 
-    .px-3.border-right.text-nowrap
-      .calendar-cell.border-bottom
-        = day.date
-      - @resources.all.each do |r|
-        .calendar-cell.border-bottom
-          = day.prepare_data(r)
+        .px-3.border-right.text-nowrap
+          .calendar-cell.border-bottom
+            = day.date
+          - @resources.all.each do |r|
+            .calendar-cell.border-bottom
+              = day.prepare_data(r)
+  .row
+    .table-responsive.table-hover
+      %table.table.table-striped
+        %thead
+          %tr
+            %th Resource Name
+            %th January
+            %th February
+            %th March
+            %th April
+            %th May
+            %th June
+            %th July
+            %th August
+            %th September
+            %th October
+            %th November
+            %th December
+        %tbody
+          - @result.data.each do |resource_name, data|
+            %tr
+              %td= resource_name
+              - for i in 1..12
+                %td= data[:monthly_report][i] || 0
+
