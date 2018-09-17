@@ -4,7 +4,7 @@ class AssignedResource < ApplicationRecord
   belongs_to :resource
   belongs_to :project
   has_many :project_days, dependent: :destroy
-  has_many :calendar_days, through: :project_days
+  has_many :calendar_days, through: :project_days, class_name: 'Calendar::Day'
 
   def _start_date
     (start_date || project.start_date).to_date
@@ -19,7 +19,7 @@ class AssignedResource < ApplicationRecord
   end
 
   def distribution?
-    forecast_type_id == 0
+    forecast_type_id.zero?
   end
 
   def allocation?

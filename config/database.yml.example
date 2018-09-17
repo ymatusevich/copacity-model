@@ -1,0 +1,23 @@
+#b2b2dot0
+base: &base
+  adapter: mysql2
+  host: localhost
+  username: b2b
+  password: b2b4you
+
+development:
+  <<: *base
+  database: corevist_azehnder
+
+test:
+  <<: *base
+  database: corevist_azehnder_test
+
+qa:
+  <<: *base
+  database: b2b2dot0_production
+
+production:
+  <<: *base
+  database: b2b2dot0_production
+
