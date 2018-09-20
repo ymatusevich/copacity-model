@@ -12,8 +12,11 @@ class Project < ApplicationRecord
   nested_attributes_for :assigned_resources, :estimations
 
   STATUS = {
-      in_progress: 1,
       active: [0, 1, 2, 4],
+      in_progress: 1,
+      not_started: 0,
+      pending: 2,
+      on_hold: 4,
       completed: 3
   }
 

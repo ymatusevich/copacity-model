@@ -27,9 +27,9 @@
         %tr
           %td= client.abbreviation
           %td= client.name
-          %td= link_to client.projects_active.size, client_projects_path(client, status: :active)
-          %td= link_to client.projects_in_progress.size, client_projects_path(client, status: :in_progress)
-          %td= link_to client.projects_completed.size, client_projects_path(client, status: :completed)
-          %td= link_to 'Show', client_projects_path(client)
+          %td= link_to client.projects_active.size, projects_path(client_id: client.id, status: :active)
+          %td= link_to client.projects_in_progress.size, projects_path(client_id: client.id, status: :in_progress)
+          %td= link_to client.projects_completed.size, projects_path(client_id: client.id, status: :completed)
+          %td= link_to 'Show', projects_path(client_id: client.id)
           %td= link_to 'Edit', edit_client_path(client)
           %td= link_to 'Destroy', client, method: :delete, data: { confirm: 'Are you sure?' }
