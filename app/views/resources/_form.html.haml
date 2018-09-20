@@ -27,19 +27,26 @@
               = f.text_field :email, class: 'form-control'
           .flex-input-item.flex-fill
             .form-group
-              = f.label :general_capacity
-              = f.number_field :general_capacity, class: 'form-control'
+              = f.label :general_capacity, 'Capacity %'
+              = f.number_field :general_capacity, class: 'form-control', max: '100', min: '0'
+          .flex-input-item.flex-fill
+            .form-group
+              = f.label 'Max capacity, h'
+              = text_field_tag :max_capacity, Settings.assumptions.working_hours, readonly: true, size: 1, class: 'form-control'
 
     .justify-content-start.pl-4.w-50
       %p Assigned Projects:
       - @resource.assigned_projects.each do |ap|
-        .flex-row.border-bottom.w-100
+        .flex-row.border-bottom.w-100.mb-3
           .form-group
-            %label Project Name
-            = ap.project&.name
+            %b Project Name:
+            %span= link_to ap.project&.name, project_path(ap.project.id)
           .form-group
-            %label Resource Type
-            = ap.resource_type_id
+            %b Client:
+            %span= ap.project&.client&.name
+          .form-group
+            %b Resource Type:
+            %span= resource_type_name(ap.resource_type_id)
 
   .d-flex.flex-row.form-actions.w-100
     = link_to 'Back', resources_path, class: 'btn btn-dark'
