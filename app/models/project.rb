@@ -11,6 +11,12 @@ class Project < ApplicationRecord
 
   nested_attributes_for :assigned_resources, :estimations
 
+  STATUS = {
+      in_progress: 1,
+      active: [0, 1, 2, 4],
+      completed: 3
+  }
+
   def status_name
     Settings.project.status.to_h.key(status.to_i)
   end
