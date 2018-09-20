@@ -3,8 +3,8 @@ class ProjectsController < ApplicationController
 
   def index
     projects = Project.includes(:client, :resources, :estimations, :adjustments)
-    projects = params[:client_id] ? projects.where(client_id: params[:client_id]) : projects
-    @projects = params[:status] ? projects.where(status: Project::STATUS[params[:status].to_sym]) : projects
+    projects = params[:client_id].present? ? projects.where(client_id: params[:client_id]) : projects
+    @projects = params[:status].present? ? projects.where(status: Project::STATUS[params[:status].to_sym]) : projects
   end
 
   def show

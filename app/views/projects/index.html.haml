@@ -5,9 +5,13 @@
   .justify-content-end.d-flex
     .btn-group.mr-2
       = link_to 'New Project', new_project_path, class: 'btn btn-sm btn-outline-secondary'
-    %button.btn.btn-sm.btn-outline-secondary.dropdown-toggle
-      %span{"data-feather" => "calendar"}
-      This week
+    .btn-group
+      = form_tag projects_path, class: 'input-group input-group-sm', method: :get do
+        .input-group-prepend
+          .input-group-text
+            Filter
+        = select_status_tag
+        = select_client_tag
 
 .flex-column.w-100.dark-gray
   - @projects.each_with_index do |project, index|

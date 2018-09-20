@@ -5,9 +5,7 @@ Rails.application.routes.draw do
     resources :adjustments, except: [:show, :index]
   end
 
-  resources :clients do
-    resources :projects, only: :index
-  end
+  resources :clients
 
   resources :calendar_days, only: :index
 
