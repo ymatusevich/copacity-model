@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AdjustmentForm < BaseForm
   attr_accessor :id, :date, :project_id
 
@@ -11,6 +13,5 @@ class AdjustmentForm < BaseForm
     project.save!
   end
 
-  def update!
-  end
+  def update!; end
 end

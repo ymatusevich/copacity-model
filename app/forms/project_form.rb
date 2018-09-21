@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProjectForm < BaseForm
   attr_accessor :id, :uid, :name, :price, :currency, :status, :client_id, :start_date, :end_date,
                 :assigned_resources, :estimations
@@ -77,14 +79,14 @@ class ProjectForm < BaseForm
 
   def project_params
     {
-        uid: uid,
-        name: name,
-        price: price,
-        currency: currency,
-        status: status,
-        client_id: client_id,
-        start_date: start_date,
-        end_date: end_date
+      uid: uid,
+      name: name,
+      price: price,
+      currency: currency,
+      status: status,
+      client_id: client_id,
+      start_date: start_date,
+      end_date: end_date
     }
   end
 

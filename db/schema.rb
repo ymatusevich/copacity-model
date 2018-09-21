@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_20_143258) do
+ActiveRecord::Schema.define(version: 2018_09_20_180709) do
 
   create_table "adjustments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "date"
@@ -32,6 +32,13 @@ ActiveRecord::Schema.define(version: 2018_09_20_143258) do
     t.integer "forecast_type_id"
     t.index ["project_id"], name: "index_assigned_resources_on_project_id"
     t.index ["resource_id"], name: "index_assigned_resources_on_resource_id"
+  end
+
+  create_table "assigned_resources_calendar_days", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "calendar_day_id"
+    t.bigint "assigned_resource_id"
+    t.index ["assigned_resource_id"], name: "index_assigned_resources_calendar_days_on_assigned_resource_id"
+    t.index ["calendar_day_id"], name: "index_assigned_resources_calendar_days_on_calendar_day_id"
   end
 
   create_table "calendar_days", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -56,7 +63,7 @@ ActiveRecord::Schema.define(version: 2018_09_20_143258) do
     t.bigint "calendar_day_id"
     t.bigint "assigned_resource_id"
     t.integer "resource_id"
-    t.integer "project_id"
+    t.bigint "project_id"
     t.index ["assigned_resource_id"], name: "index_project_days_on_assigned_resource_id"
     t.index ["calendar_day_id"], name: "index_project_days_on_calendar_day_id"
     t.index ["project_id"], name: "index_project_days_on_project_id"
@@ -113,4 +120,5 @@ ActiveRecord::Schema.define(version: 2018_09_20_143258) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "project_days", "projects"
 end

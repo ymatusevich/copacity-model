@@ -8,6 +8,4 @@ class LoginUserService < BaseService
       this.fail
     end
   end
-
-  private
 end

@@ -1,0 +1,17 @@
+.container
+  .card.text-center
+    .card-header
+      Report by resources
+    .card-body  
+      .d-flex.calendar.flex-row.position-relative.w-100.scroll-x      
+        %table.table-bordered
+          %tr
+            %th{id: :resource} Resources
+            - @result.data[:monthes].each do |month|
+              %th{ id: month }= month
+          - Settings.resource_types.to_h.each do |name, id|
+            %tr   
+              - @result.data[:monthes].each_with_index do |month, index|
+                - if index.zero?
+                  %td= name.to_s.humanize
+                %td{ headers: month }= @result.data.dig(:data, id, month)&.round(1) || 0
