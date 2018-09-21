@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 class BaseService
-  def initialize
-  end
+  def initialize; end
 
   def call
     raise NotImplementedError

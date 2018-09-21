@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
-  enum role: [:user, :vip, :admin]
-  COREVIST_DOMAIN = 'corevist.com'.freeze
+  enum role: %i[user vip admin]
+  COREVIST_DOMAIN = 'corevist.com'
 
   after_initialize :set_default_role, if: :new_record?
-
 
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable,
