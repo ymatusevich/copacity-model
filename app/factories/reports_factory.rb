@@ -5,7 +5,8 @@ class ReportsFactory < BaseFactory
     @storage = {
       day: 'Reports::DailyService',
       month: 'Reports::MonthlyService',
-      resource: 'Reports::ResourcesService'
+      resource: 'Reports::ResourcesService',
+      project: 'Reports::ProjectService'
     }.with_indifferent_access
   end
 end
