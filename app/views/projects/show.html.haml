@@ -1,6 +1,21 @@
-%p#notice= notice
-
-
-= link_to 'Edit', edit_project_path(@project)
-\|
-= link_to 'Back', projects_path
+.container
+  .card.text-center
+    .card-header
+      = "#{@result.data[:project_name]} Project Report"
+    .card-body 
+      .d-flex.calendar.flex-row.position-relative.w-100.scroll-x
+        - @result.data[:data].each_with_index do |(resource_name, data), index|
+          - if index == 0
+            .calendar-resources.d-flex.text-nowrap.position-sticky.flex-column
+              .calendar-cell.border-bottom
+                Resources
+              - @result.data[:resources].each do |resource|
+                .calendar-cell.border-bottom
+                  = resource.name
+          - data.each do |date, value|        
+            .px-3.border-right.text-nowrap
+              .calendar-cell.border-bottom
+                = date
+              - @result.data[:resources].each do |resource|
+                .calendar-cell.border-bottom
+                  = (@result.data[:data][resource.name][date] || 0).round(2)
