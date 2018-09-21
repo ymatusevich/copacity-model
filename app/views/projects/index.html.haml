@@ -32,24 +32,42 @@
       .w-35.border-right.px-3
         .project-assigned-resources
           .project-assigned-resource.d-flex.mb-2.pb-2.border-bottom.text-center
-            .w-25
-              %span.oi.oi-people
-            .w-25
-              %span.oi.oi-wrench{ title: 'estimated hours' }
-            .w-25
-              %span.oi.oi-pin{ title: 'hours assigned' }
-            .w-25
-              %span.oi.oi-warning{ title: 'unallocated hours' }
+            .w-35
+              %span.oi.oi-people{ title: 'resource name' }
+            .w-20
+              %span.oi.oi-command{ title: 'resource type' }
+            .w-15
+              %span.oi.oi-wrench{ title: 'assigned hours' }
+            .w-15
+              %span.oi.oi-pin{ title: 'total estimated hours for project' }
+            .w-15
+              %span.oi.oi-warning{ title: 'unallocated hours for project' }
           - project.resource_types.each do |rt|
-            .project-assigned-resource.d-flex.mb-2.pb-2.border-bottom.text-center
-              .w-25
-                = resource_type_name(rt)
-              .w-25
-                %span= project.estimated_hours_for(rt)
-              .w-25
-                %span= project.assigned_hours_for(rt)
-              .w-25
-                %span= project.unallocated_hours_for(rt)
+            - if project.assigned_resources.by_type(rt).any?
+              - project.assigned_resources.by_type(rt).each do |ar|
+                .project-assigned-resource.d-flex.mb-2.pb-2.border-bottom.text-center
+                  .w-35
+                    = ar.resource.name
+                  .w-20
+                    = resource_type_name(rt)
+                  .w-15
+                    %span= ar.hours_consumed
+                  .w-15
+                    %span= project.estimated_hours_for(ar.resource_type_id)
+                  .w-15
+                    %span= project.unallocated_hours_for(ar.resource_type_id)
+            - else
+              .project-assigned-resource.d-flex.mb-2.pb-2.border-bottom.text-center
+                .w-35 -
+                .w-20
+                  = resource_type_name(rt)
+                .w-15
+                  %span -
+                .w-15
+                  %span= project.estimated_hours_for(rt)
+                .w-15
+                  %span= project.unallocated_hours_for(rt)
+
           .estimation-details.text-center
             = link_to 'details', project
       .w-25.pl-3.third
