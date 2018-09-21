@@ -9,7 +9,9 @@ class ProjectsController < ApplicationController
     @projects = params[:status] ? projects.where(status: Project::STATUS[params[:status].to_sym]) : projects
   end
 
-  def show; end
+  def show
+    @result = report_for(:project, params)
+  end
 
   def new
     @project = ProjectForm.new
