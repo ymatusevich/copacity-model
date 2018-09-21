@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BaseForm
   include ActiveModel::Model
   extend ActiveRecord::Validations::ClassMethods

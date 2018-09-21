@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AssignedResourceForm < BaseForm
   attr_accessor :id, :resource_id, :project_id, :resource_type_id, :start_date, :end_date, :involvement, :_destroy,
                 :forecast_type_id
@@ -14,11 +16,11 @@ class AssignedResourceForm < BaseForm
     resource.working_days.each do |day|
       calendar_day = find_calendar_day(day.to_date)
       project_day = ProjectDayForm.new(
-                                        calendar_day_id: calendar_day.id,
-                                        assigned_resource_id: resource.id,
-                                        resource_id: resource_id,
-                                        project_id: project_id
-                                      )
+        calendar_day_id: calendar_day.id,
+        assigned_resource_id: resource.id,
+        resource_id: resource_id,
+        project_id: project_id
+      )
 
       raise ActiveRecord::Rollback unless project_day.save
     end
@@ -26,13 +28,13 @@ class AssignedResourceForm < BaseForm
 
   def assigned_resource_params
     {
-        resource_id: resource_id,
-        project_id: project_id,
-        resource_type_id: resource_type_id,
-        start_date: start_date,
-        end_date: end_date,
-        involvement: involvement,
-        forecast_type_id: forecast_type_id
+      resource_id: resource_id,
+      project_id: project_id,
+      resource_type_id: resource_type_id,
+      start_date: start_date,
+      end_date: end_date,
+      involvement: involvement,
+      forecast_type_id: forecast_type_id
     }
   end
 

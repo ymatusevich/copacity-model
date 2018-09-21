@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: %i[show edit update destroy]
 
   def index
     projects = Project.includes(:client, :resources, :estimations, :adjustments)
@@ -7,8 +9,7 @@ class ProjectsController < ApplicationController
     @projects = params[:status] ? projects.where(status: Project::STATUS[params[:status].to_sym]) : projects
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @project = ProjectForm.new
@@ -16,8 +17,8 @@ class ProjectsController < ApplicationController
 
   def edit
     attrs = @project.attributes
-                .merge(@project.assigned_resources_attributes)
-                .merge(@project.estimations_attributes)
+                    .merge(@project.assigned_resources_attributes)
+                    .merge(@project.estimations_attributes)
 
     @project = ProjectForm.new(attrs)
   end
@@ -51,15 +52,16 @@ class ProjectsController < ApplicationController
   end
 
   private
-    def set_project
-      @project = Project.find(params[:id])
-    end
 
-    def new_project_form_params
-      params.fetch(:project, {})
-    end
+  def set_project
+    @project = Project.find(params[:id])
+  end
 
-    def edit_project_form_params
-      new_project_form_params.merge(id: params[:id])
-    end
+  def new_project_form_params
+    params.fetch(:project, {})
+  end
+
+  def edit_project_form_params
+    new_project_form_params.merge(id: params[:id])
+  end
 end

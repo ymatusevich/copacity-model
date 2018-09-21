@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class AdjustmentsController < ApplicationController
-  before_action :set_adjustment, only: [:edit, :update, :destroy]
+  before_action :set_adjustment, only: %i[edit update destroy]
 
   def new
     @adjustment = AdjustmentForm.new
@@ -33,11 +35,11 @@ class AdjustmentsController < ApplicationController
 
   private
 
-    def set_adjustment
-      @adjustment = Adjustment.find(params[:id])
-    end
+  def set_adjustment
+    @adjustment = Adjustment.find(params[:id])
+  end
 
-    def adjustment_params
-      params.fetch(:adjustment_form, {})
-    end
+  def adjustment_params
+    params.fetch(:adjustment_form, {})
+  end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   include Pundit
 
@@ -52,5 +54,4 @@ class UsersController < ApplicationController
   def secure_params
     params.require(:user).permit(:first_name, :last_name)
   end
-
 end
