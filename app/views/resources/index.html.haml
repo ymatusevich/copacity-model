@@ -16,6 +16,7 @@
       %tr
         %th Name
         %th Email
+        %th Assigned Projects
         %th Capacity, %
         %th Daily, h
         %th
@@ -26,6 +27,7 @@
         %tr
           %td= resource.name
           %td= resource.email
+          %td= resource.projects.size
           %td= resource.general_capacity
           %td= resource.daily_capacity
           %td= link_to 'Edit', edit_resource_path(resource)
