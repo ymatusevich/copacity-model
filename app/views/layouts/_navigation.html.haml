@@ -10,8 +10,10 @@
   %span Reports
 %ul.nav.flex-column.mb-2
   %li.nav-item
-    = link_to 'Report', calendar_days_path, class: 'nav-link'
+    = link_to 'Daily Report', reports_path(type: :day), class: 'nav-link'
   %li.nav-item
-    = link_to 'By resource type', '#', class: 'nav-link'
+    = link_to 'Monthly Report', reports_path(type: :month), class: 'nav-link'
+  %li.nav-item
+    = link_to 'By resource type', reports_path(type: :resource), class: 'nav-link'
   %li.nav-item
     = link_to 'By project', '#', class: 'nav-link'

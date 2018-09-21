@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Project < ApplicationRecord
   extend NestedAttributes
 
@@ -8,6 +10,7 @@ class Project < ApplicationRecord
   has_many :estimations, dependent: :destroy
   has_many :assigned_resources, dependent: :destroy
   has_many :resources, through: :assigned_resources
+  has_many :project_days
 
   nested_attributes_for :assigned_resources, :estimations
 

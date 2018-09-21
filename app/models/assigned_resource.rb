@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class AssignedResource < ApplicationRecord
-  scope :by_type, -> (id) { where(resource_type_id: id) }
+  scope :by_type, ->(id) { where(resource_type_id: id) }
 
   belongs_to :resource
   belongs_to :project
