@@ -1,21 +1,22 @@
-.container
-  .card.text-center
-    .card-header
-      Monthly Report
-    .card-body  
-      .d-flex.calendar.flex-row.position-relative.w-100.scroll-x
-        - @result.data[:monthes].each_with_index do |(month_name, month), index|
-          - if index == 0
-            .calendar-resources.d-flex.text-nowrap.position-sticky.flex-column
-              .calendar-cell.border-bottom
-                Resources
-              - @result.data[:resources].each do |r|
-                .calendar-cell.border-bottom
-                  = r.name
-
-          .px-3.border-right.text-nowrap
-            .calendar-cell.border-bottom
-              = month_name
-            - @result.data[:resources].each do |r|
-              .calendar-cell.border-bottom
-                = month.prepare_data(r)&.round(1)
+%section
+  .table-wrapper
+    %table
+      %caption Monthly report
+      - @result.data[:resources].each_with_index do |resource, index|
+        - if index.zero?
+          %thead
+            %tr
+              - Date::MONTHNAMES.each do |month|
+                %td{ class: month.nil? ? 'first-col' : '' }
+                  - if month.nil?
+                    = 'Resources'
+                  - else
+                    = month || 'Resources:'
+          %tbody
+        %tr
+          - Date::MONTHNAMES.each do |month|
+            %td{ class: month.nil? ? 'first-col' : '' }
+              - if month.nil?
+                = resource.name
+              - else
+                = @result.data[:monthes][month].prepare_data(resource)&.round(1)
