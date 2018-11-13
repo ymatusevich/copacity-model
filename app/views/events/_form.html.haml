@@ -1,0 +1,23 @@
+.modal#new_event_modal{ tabIndex: -1, role: 'dialog' }
+  .modal-dialog{ role: 'document' }
+    .modal-content
+      .modal-header
+        %h5.modal-title Add New Event To Calendar
+        %button.close{ type: 'button', data: { dissmiss: 'modal', label: 'Close'} }
+      .modal-body
+        = form_for @event_form, url: events_path, method: :post, remote: :true do |form|
+          .form-group
+            = form.label :start_date
+            = form.datetime_field :start_date, class: 'form-control'
+          .form-group
+            = form.label :end_date
+            = form.datetime_field :end_date, class: 'form-control'
+          .form-group
+            = form.label :summary
+            = form.text_field :summary, class: 'form-control'
+
+          = form.hidden_field :creator_name, value: current_user.name
+          = form.hidden_field :creator_email, value: current_user.email
+          = form.hidden_field :type, value: 'vacation'
+
+          = form.submit
