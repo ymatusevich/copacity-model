@@ -40,6 +40,12 @@ gem 'google-api-client'
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 
+
+# fix vulnerabilities
+#
+gem 'rubyzip', '>= 1.2.2'
+gem 'loofah', '>= 2.2.3'
+
 group :development do
   gem 'better_errors'
   gem 'rails_layout'
