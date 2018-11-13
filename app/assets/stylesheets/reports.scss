@@ -1,0 +1,73 @@
+.table-wrapper {
+  height: auto;
+  background: white;
+  margin: 0 auto;
+  margin: 0 auto;
+  overflow-x: scroll;
+  table {
+    padding: 100px 10px 15px;
+    padding-left: 0px;
+    border-top: 0;
+    border-spacing: 0px 0px;;
+    width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+    thead {
+      font-weight: lighter;
+      td:first-child {
+        background: white;
+      }
+      tr {
+        font-size: 18px;
+        td {
+          padding-bottom: 15px;
+        }
+        td:nth-child(2){
+          padding-left: 150px;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td:nth-child(2){
+          padding-left: 150px;
+        }
+      }
+      tr:nth-child(odd) td:first-child {
+        background: white;
+      }
+      tr:nth-child(even) td:first-child {
+          background: #ff6c6e;
+      }
+      td:not(:nth-child(1)) {
+        min-width: 96px;
+      }
+    }
+
+    tr:nth-child(even) {
+      background: #ff5f6d; /* fallback for old browsers */
+      background: linear-gradient(to right, rgba(#ff5f6d, .5), rgba(#ffc371, .5)); /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #ff5f6d, #ffc371); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+
+    td {
+      padding: 15px 0;
+    }
+
+    caption {
+      padding: 20px 0;
+      border-bottom: 0px;
+      margin-top: 30px;
+      font-weight: 300;
+      font-size: 20px;
+      position:absolute;
+      left:50%;
+      top: 0;
+    }
+  }
+
+  .first-col {
+    position: absolute;
+    min-width: 150px;
+  }
+}

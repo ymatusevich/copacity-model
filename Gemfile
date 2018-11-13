@@ -36,6 +36,9 @@ gem 'business_time'
 # gem 'cocoon', path: '/projects/cocoon'
 gem 'cocoon', git: 'https://github.com/ymatusevich/cocoon'
 gem 'dragonfly', '~> 1.1.5'
+gem 'google-api-client'
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
 
 group :development do
   gem 'better_errors'
