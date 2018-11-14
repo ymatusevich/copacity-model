@@ -1,22 +1,20 @@
-%section
-  .table-wrapper
-    %table
-      %caption Monthly report
-      - @result.data[:resources].each_with_index do |resource, index|
-        - if index.zero?
-          %thead
-            %tr
-              - Date::MONTHNAMES.each do |month|
-                %td{ class: month.nil? ? 'first-col' : '' }
-                  - if month.nil?
-                    = 'Resources'
-                  - else
-                    = month || 'Resources:'
-          %tbody
-        %tr
-          - Date::MONTHNAMES.each do |month|
-            %td{ class: month.nil? ? 'first-col' : '' }
-              - if month.nil?
-                = resource.name
-              - else
-                = @result.data[:monthes][month].prepare_data(resource)&.round(1)
+%section.table-wrapper
+  %table
+    %caption Monthly report
+    - @result.data[:resources].each_with_index do |resource, index|
+      - if index.zero?
+        %thead
+          %tr
+            - Date::MONTHNAMES.each do |month|
+              %td{ class: month.nil? ? 'first-col' : '' }
+                - if month.nil?
+                  = 'Resources'
+                - else
+                  = month || 'Resources:'
+      %tr
+        - Date::MONTHNAMES.each do |month|
+          %td{ class: month.nil? ? 'first-col' : '' }
+            - if month.nil?
+              = resource.name
+            - else
+              = @result.data[:monthes][month].prepare_data(resource)&.round(1)
