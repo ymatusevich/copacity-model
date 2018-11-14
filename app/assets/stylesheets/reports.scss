@@ -1,46 +1,55 @@
 .table-wrapper {
-  height: auto;
-  background: white;
-  margin: 0 auto;
-  margin: 0 auto;
-  overflow-x: scroll;
+  width: 100%;
+  overflow-x: auto;
+
   table {
-    padding: 100px 10px 15px;
-    padding-left: 0px;
-    border-top: 0;
-    border-spacing: 0px 0px;;
-    width: 1000px;
-    margin: 0 auto;
+    width: 100%;
+    min-width: 1000px;
+    border-spacing: 0 0;
     text-align: center;
+
+    td {
+      padding: 13px 10px;
+    }
+
     thead {
       font-weight: lighter;
-      td:first-child {
-        background: white;
-      }
+
       tr {
+        border-bottom: 1px solid #000;
+      }
+
+      td {
         font-size: 18px;
-        td {
-          padding-bottom: 15px;
+
+        &:first-child {
+          background: white;
         }
-        td:nth-child(2){
-          padding-left: 150px;
+
+        &:nth-child(2){
+          padding-left: 160px;
         }
       }
     }
     tbody {
       tr {
         td:nth-child(2){
-          padding-left: 150px;
+          padding-left: 160px;
         }
-      }
-      tr:nth-child(odd) td:first-child {
-        background: white;
-      }
-      tr:nth-child(even) td:first-child {
+
+        &:nth-child(odd) td:first-child {
+          padding-left: 15px;
+          background: white;
+        }
+
+        &:nth-child(even) td:first-child {
+          padding-left: 15px;
           background: #ff6c6e;
-      }
-      td:not(:nth-child(1)) {
-        min-width: 96px;
+        }
+
+        &:not(:nth-child(1)) {
+          min-width: 96px;
+        }
       }
     }
 
@@ -50,24 +59,19 @@
       background: linear-gradient(to right, #ff5f6d, #ffc371); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     }
 
-    td {
-      padding: 15px 0;
-    }
-
     caption {
-      padding: 20px 0;
-      border-bottom: 0px;
-      margin-top: 30px;
+      text-align: center;
       font-weight: 300;
       font-size: 20px;
-      position:absolute;
-      left:50%;
-      top: 0;
+      caption-side: top;
     }
   }
 
   .first-col {
     position: absolute;
     min-width: 150px;
+    border-right: 1px solid #000;
+    text-align: left;
+    font-weight: bold;
   }
 }
